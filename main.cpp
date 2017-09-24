@@ -1,13 +1,13 @@
-#include<stdio.h>
+ï»¿#include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
 
 void main() {
 	double x, y,ChangeAngle,SumAngle=0;
 	x = 100; y = 200;//input
-	ChangeAngle = 45.0*3.1415926/180;//¤G¤Àªk
+	ChangeAngle = 45.0*3.1415926/180;//äºŒåˆ†æ³•
 	//-------------------------------------------------
-	x *= 1000; y *= 1000;//¼W¥[ºë½T«×
+	x *= 1000; y *= 1000;//å¢žåŠ ç²¾ç¢ºåº¦
 	for (int i = 0; i < 15; i++) {
 		double x_new, y_new;
 		if (y > 0) {
