@@ -1,29 +1,63 @@
-ï»¿#include<stdio.h>
-#include<stdlib.h>
+#include<iostream>
 #include<math.h>
+using namespace std;
+const double TanAngle[] = {
+	45.0,
+	26.565051177078,
+	14.0362434679265,
+	7.1250163489018,
+	3.57633437499735,
+	1.78991060824607,
+	0.8951737102111,
+	0.4476141708606,
+	0.2238105003685,
+	0.1119056770662,
+	0.0559528918938,
+	0.027976452617,
+	0.01398822714227,
+	0.006994113675353,
+	0.003497056850704
+};
+const double Tangent[] = {
+	1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384
+};
 
 void main() {
-	double x, y,ChangeAngle,SumAngle=0;
-	x = 100; y = 200;//input
-	ChangeAngle = 45.0*3.1415926/180;//äºŒåˆ†æ³•
-	//-------------------------------------------------
-	x *= 1000; y *= 1000;//å¢žåŠ ç²¾ç¢ºåº¦
+	double InAngle = 0, Out, Angle;
+	cout << "¿é¤Jsin¨¤«×" << endl;
+	cin >> InAngle; Angle = 90 - InAngle;
+	if (Angle < 0)Angle += 360;
+	double x = 0, y = 1, xtemp, ytemp;
+	//¿z¿ï
+	if (Angle >= 225) {
+		xtemp = y;
+		ytemp = -x;
+		x = xtemp; y = ytemp; Angle -= 270;
+	}
+	else if (Angle >= 135) {
+		xtemp = -x;
+		ytemp = -y;
+		x = xtemp; y = ytemp; Angle -= 180;
+	}
+	else if (Angle >= 45) {
+		xtemp = -y;
+		ytemp = x;
+		x = xtemp; y = ytemp; Angle -= 90;
+	}xtemp = ytemp = 0;
+	cout << "frist:" << x << "," << y << endl;
 	for (int i = 0; i < 15; i++) {
-		double x_new, y_new;
-		if (y > 0) {
-			x_new = x + y*tan(ChangeAngle);
-			y_new = y - x*tan(ChangeAngle);
-			SumAngle += ChangeAngle;
+		if (Angle < 0) {
+			xtemp = x - y/Tangent[i];
+			ytemp = y + x/Tangent[i];
+			Angle += TanAngle[i];
 		}
 		else {
-			x_new = x - y*tan(ChangeAngle);
-			y_new = y + x*tan(ChangeAngle);
-			SumAngle -= ChangeAngle;
-		}
-		x = x_new*cos(ChangeAngle);
-		y = y_new*cos(ChangeAngle);
-		ChangeAngle /= 2;
+			xtemp = x + y/Tangent[i];
+			ytemp = y - x/Tangent[i];
+			Angle -= TanAngle[i];
+		} x = xtemp; y = ytemp;
+		cout << "i=" << i << "\tx=" << x << ",y=" << y << "\tAngle=" << Angle << endl;
 	}
-	printf("r=%f Sum=%f \n", x/1000, SumAngle / 3.1415926 * 180);
+	cout << "Out:" << y*0.607 << endl;
 	system("pause");
 }
